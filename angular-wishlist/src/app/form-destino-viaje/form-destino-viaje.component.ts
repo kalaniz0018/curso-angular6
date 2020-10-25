@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoViaje } from '../models/destino-viaje.model';
 
 
@@ -19,7 +19,7 @@ export class FormDestinoViajeComponent implements OnInit {
     this.onItemAdded = new EventEmitter();
     //vinculacion con tag html
     this.fg = this.fb.group({
-      nombre: [''],
+      nombre: ['', Validators.required],
       url: ['']
     });
 
