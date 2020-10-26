@@ -22,25 +22,15 @@ export class ListaDestinoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): {
+  ngOnInit() {
   }
-  /*
-  guardar(nombre:string, url:string):boolean {
-    this.destinos.push(new DestinoViaje(nombre, url));
-    //console.log(new DestinoViaje(nombre,url));
-    //console.log(this.destinos);
-    return false;
-  }*/
+ 
   agregado(d: DestinoViaje) {
     this.destinosApiClient.add(d);
     this.onItemAdded.emit(d);
   }
 
   elegido(e: DestinoViaje){
-    //desmarcar todos los demas en en array de elegidos
-    //this.destinos.forEach(function (x) {x.setSelected(false); });
-    //se marca el elegido
-    //d.setSelected(true);
     this.destinosApiClient.elegir(e);
   }
 }
