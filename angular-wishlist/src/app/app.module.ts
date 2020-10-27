@@ -59,7 +59,13 @@ let reducersInitialState = {
     RouterModule.forRoot(routes), //registrando las rutas
     FormsModule, //agregar un formulario
     ReactiveFormsModule,
-    NgRxStoreModule.forRoot(reducers, {initialState: reducersInitialState}),
+    NgRxStoreModule.forRoot(reducers, {
+      initialState: reducersInitialState,
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false
+      }
+    }),
     EffectsModule.forRoot([DestinosViajesEffects])
   ],
   providers: [
