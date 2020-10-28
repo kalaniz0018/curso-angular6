@@ -21,6 +21,7 @@
     "@angular/router": "~10.1.5",
     "@ngrx/effects": "^10.0.1",
     "@ngrx/store": "^10.0.1",
+    "@ngrx/store-devtools": "^10.0.1",
     "@types/uuid": "^8.3.0",
     "bootstrap": "^4.5.3",
     "rxjs": "~6.6.0",
