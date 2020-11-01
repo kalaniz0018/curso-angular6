@@ -23,15 +23,24 @@ import {DestinosViajesState,
         intializeDestinosViajesState,
         DestinosViajesEffects
       } from './models/destinos-viajes-state.model';
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './components/protected/protected/protected.component';
+import { AuthService } from './services/auth.service';
+import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
 
 // definiendo direcciones del nav
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: ListaDestinoComponent},
-  { path: 'destino', component: DestinoDetalleComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: ListaDestinoComponent },
+  { path: 'destino/:id', component: DestinoDetalleComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'protected',
+    component: ProtectedComponent,
+    canActivate: [ UsuarioLogueadoGuard ]
+  }
 ];
-
 //redux init
 export interface AppState {
   destinos: DestinosViajesState;
@@ -53,7 +62,9 @@ let reducersInitialState = {
     DestinoViajeComponent,
     ListaDestinoComponent,
     DestinoDetalleComponent,
-    FormDestinoViajeComponent
+    FormDestinoViajeComponent,
+    LoginComponent,
+    ProtectedComponent
     
   ],
   imports: [
@@ -72,7 +83,7 @@ let reducersInitialState = {
     StoreDevtoolsModule.instrument()
   ],
   providers: [
-    DestinosApiClient
+    DestinosApiClient, AuthService, UsuarioLogueadoGuard
   ],
   bootstrap: [AppComponent]
 })
