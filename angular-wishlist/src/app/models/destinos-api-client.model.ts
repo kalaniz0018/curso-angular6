@@ -8,6 +8,7 @@ import { ElegidoFavoritoAction, NuevoDestinoAction } from './destinos-viajes-sta
 
 @Injectable()
 export class DestinosApiClient {
+  getById: any;
 	constructor(private store: Store<AppState>) {
 	}
 	add(d: DestinoViaje){

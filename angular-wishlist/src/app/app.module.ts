@@ -27,8 +27,19 @@ import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
 import { AuthService } from './services/auth.service';
 import { UsuarioLogueadoGuard } from './guards/usuario-logueado/usuario-logueado.guard';
+import { VuelosComponentComponent } from './components/vuelos/vuelos-component/vuelos-component.component';
+import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-component/vuelos-main-component.component';
+import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
+import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 
 // definiendo direcciones del nav
+
+export const childrenRoutesVuelos: Routes = [
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: 'main', component: VuelosMainComponentComponent },
+  { path: 'mas-info', component: VuelosMainComponentComponent },
+  { path: ':id', component: VuelosDetalleComponent },
+]; 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -39,6 +50,12 @@ const routes: Routes = [
     path: 'protected',
     component: ProtectedComponent,
     canActivate: [ UsuarioLogueadoGuard ]
+  },
+  {
+    path: 'vuelos',
+    component: VuelosComponentComponent,
+    canActivate: [ UsuarioLogueadoGuard ],
+    children: childrenRoutesVuelos
   }
 ];
 //redux init
@@ -64,7 +81,11 @@ let reducersInitialState = {
     DestinoDetalleComponent,
     FormDestinoViajeComponent,
     LoginComponent,
-    ProtectedComponent
+    ProtectedComponent,
+    VuelosComponentComponent,
+    VuelosMainComponentComponent,
+    VuelosMasInfoComponentComponent,
+    VuelosDetalleComponent
     
   ],
   imports: [
