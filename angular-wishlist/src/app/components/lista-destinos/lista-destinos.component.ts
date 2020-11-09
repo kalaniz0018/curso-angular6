@@ -10,7 +10,8 @@ import { DestinosApiClient } from './../../models/destinos-api-client.model';
 @Component({
   selector: 'app-lista-destino',
   templateUrl: './lista-destinos.component.html',
-  styleUrls: ['./lista-destinos.component.css']
+  styleUrls: ['./lista-destinos.component.css'],
+  providers: [DestinosApiClient]
 })
 export class ListaDestinoComponent implements OnInit {
   @Output() onItemAdded:EventEmitter<DestinoViaje>;

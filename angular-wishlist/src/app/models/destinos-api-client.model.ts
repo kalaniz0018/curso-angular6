@@ -1,3 +1,4 @@
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -8,7 +9,6 @@ import { ElegidoFavoritoAction, NuevoDestinoAction } from './destinos-viajes-sta
 
 @Injectable()
 export class DestinosApiClient {
-  getById: any;
 	constructor(private store: Store<AppState>) {
 	}
 	add(d: DestinoViaje){
@@ -16,5 +16,8 @@ export class DestinosApiClient {
 	}
 	elegir(d: DestinoViaje){
 		this.store.dispatch(new ElegidoFavoritoAction(d))
+	}
+	getById(id: String){
+		return new DestinoViaje("","");
 	}
 }
