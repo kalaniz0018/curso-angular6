@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { InjectionToken, NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injectable, InjectionToken, NgModule } from '@angular/core';
 //importando ruteo
 import { RouterModule, Routes } from '@angular/router';
 //importando formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
+import {StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
 import {EffectsModule } from '@ngrx/effects';
 import {StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';
+
 
 
 
@@ -21,7 +23,8 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 import {DestinosViajesState,
         reducerDestinosViajes,
         intializeDestinosViajesState,
-        DestinosViajesEffects
+        DestinosViajesEffects,
+        InitMyDataAction
       } from './models/destinos-viajes-state.model';
 import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
@@ -34,7 +37,7 @@ import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle-compo
 import { ReservasModule } from './reservas/reservas.module';
 
 
-// app config
+// app config para inyeccion de dependencias
 export interface AppConfig {
   apiEndpoint: String;
 }
@@ -44,7 +47,7 @@ const APP_CONFIG_VALUE: AppConfig = {
 export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 // fin app config
 
-// definiendo direcciones del nav
+// init routing
 export const childrenRoutesVuelos: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'main', component: VuelosMainComponentComponent },
@@ -69,6 +72,8 @@ const routes: Routes = [
     children: childrenRoutesVuelos
   }
 ];
+//fin routing
+
 //redux init
 export interface AppState {
   destinos: DestinosViajesState;
@@ -81,8 +86,26 @@ const reducers: ActionReducerMap<AppState> = {
 let reducersInitialState = {
   destinos: intializeDestinosViajesState()
 };
-
 //redux fin init 
+
+
+// app init
+export function init_app(appLoadService: AppLoadService): () => Promise<any>  {
+  return () => appLoadService.intializeDestinosViajesState();
+}
+@Injectable()
+class AppLoadService {
+  constructor(private store: Store<AppState>, private http: HttpClient) { }
+  async intializeDestinosViajesState(): Promise<any> {
+    const headers: HttpHeaders = new HttpHeaders({'X-API-TOKEN': 'token-seguridad'});
+    const req = new HttpRequest('GET', APP_CONFIG_VALUE.apiEndpoint + '/my', { headers: headers });
+    const response: any = await this.http.request(req).toPromise();
+    this.store.dispatch(new InitMyDataAction(response.body));
+  }
+}
+// fin app init
+
+
 
 @NgModule({
   declarations: [
@@ -104,6 +127,7 @@ let reducersInitialState = {
     RouterModule.forRoot(routes), //registrando las rutas
     FormsModule, //agregar un formulario
     ReactiveFormsModule,
+    HttpClientModule,
     NgRxStoreModule.forRoot(reducers, {
       initialState: reducersInitialState,
       runtimeChecks: {
@@ -117,7 +141,9 @@ let reducersInitialState = {
   ],
   providers: [
      AuthService, UsuarioLogueadoGuard,
-     {provide: APP_CONFIG, useValue: APP_CONFIG_VALUE}
+     {provide: APP_CONFIG, useValue: APP_CONFIG_VALUE},
+     AppLoadService,
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent]
 })
