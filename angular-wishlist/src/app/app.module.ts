@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 //importando ruteo
 import { RouterModule, Routes } from '@angular/router';
 //importando formularios
@@ -33,8 +33,18 @@ import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
 
-// definiendo direcciones del nav
 
+// app config
+export interface AppConfig {
+  apiEndpoint: String;
+}
+const APP_CONFIG_VALUE: AppConfig = {
+  apiEndpoint: 'http://localhost:3000'
+};
+export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+// fin app config
+
+// definiendo direcciones del nav
 export const childrenRoutesVuelos: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'main', component: VuelosMainComponentComponent },
@@ -106,7 +116,8 @@ let reducersInitialState = {
     ReservasModule
   ],
   providers: [
-     AuthService, UsuarioLogueadoGuard
+     AuthService, UsuarioLogueadoGuard,
+     {provide: APP_CONFIG, useValue: APP_CONFIG_VALUE}
   ],
   bootstrap: [AppComponent]
 })
