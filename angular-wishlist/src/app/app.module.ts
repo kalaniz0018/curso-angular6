@@ -10,6 +10,7 @@ import {StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';
 import Dexie from 'dexie';
 import {TranslateLoader, TranslateService} from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 
@@ -207,11 +208,18 @@ function HttpLoaderFactory(http: HttpClient) {
       runtimeChecks: {
         strictStateImmutability: false,
         strictActionImmutability: false
-      }
+      } 
     }),
     EffectsModule.forRoot([DestinosViajesEffects]),
     StoreDevtoolsModule.instrument(),
-    ReservasModule
+    ReservasModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (HttpLoaderFactory),
+          deps: [HttpClient]
+       }
+    }) 
   ],
   providers: [
      AuthService,
