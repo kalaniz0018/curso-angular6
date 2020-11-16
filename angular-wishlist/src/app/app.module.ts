@@ -12,6 +12,7 @@ import Dexie from 'dexie';
 import {TranslateLoader, TranslateService} from '@ngx-translate/core';
 import {TranslateModule} from '@ngx-translate/core';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -221,7 +222,8 @@ function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
        }
     }),
-    NgxMapboxGLModule 
+    NgxMapboxGLModule,
+    BrowserAnimationsModule 
   ],
   providers: [
      AuthService,
