@@ -11,6 +11,7 @@ import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest } from '@angular
 import Dexie from 'dexie';
 import {TranslateLoader, TranslateService} from '@ngx-translate/core';
 import {TranslateModule} from '@ngx-translate/core';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 
 
@@ -219,7 +220,8 @@ function HttpLoaderFactory(http: HttpClient) {
           useFactory: (HttpLoaderFactory),
           deps: [HttpClient]
        }
-    }) 
+    }),
+    NgxMapboxGLModule 
   ],
   providers: [
      AuthService,

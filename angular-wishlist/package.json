@@ -25,7 +25,10 @@
     "@ngx-translate/core": "^13.0.0",
     "@types/uuid": "^8.3.0",
     "bootstrap": "^4.5.3",
+    "core-js": "^3.6.5",
     "dexie": "^3.0.2",
+    "mapbox-gl": "^1.12.0",
+    "ngx-mapbox-gl": "^4.8.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -36,6 +39,7 @@
     "@angular/compiler-cli": "~10.1.5",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/mapbox-gl": "^1.12.2",
     "@types/node": "^12.19.3",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",

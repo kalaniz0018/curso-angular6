@@ -16,7 +16,7 @@ export class DestinoDetalleComponent implements OnInit {
       world: {
         type: 'geojson',
         data: 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json'
-      }
+      },
     },
     version: 8,
     layers: [{
@@ -26,8 +26,9 @@ export class DestinoDetalleComponent implements OnInit {
       'layout': {},
       'paint': {
         'fill-color': '#6F788A'
-      }
-    }]
+      },
+     },
+    ],
   };
 
   constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClient) {}
@@ -38,4 +39,3 @@ export class DestinoDetalleComponent implements OnInit {
   }
 
 }
-
