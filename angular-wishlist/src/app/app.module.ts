@@ -42,6 +42,7 @@ import { ReservasModule } from './reservas/reservas.module';
 import { DestinoViaje } from './models/destino-viaje.model';
 import { from, Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+import { EspiameDirective } from './espiame.directive';
 
 
 // app config para inyeccion de dependencias
@@ -196,7 +197,8 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosComponentComponent,
     VuelosMainComponentComponent,
     VuelosMasInfoComponentComponent,
-    VuelosDetalleComponent
+    VuelosDetalleComponent,
+    EspiameDirective
     
   ],
   imports: [
