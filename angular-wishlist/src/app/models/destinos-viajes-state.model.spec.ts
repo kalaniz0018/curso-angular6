@@ -9,9 +9,12 @@ import {
   
   describe('reducerDestinosViajes', () => {
     it('should reduce init data', () => {
+        //SetUp
       const prevState: DestinosViajesState = intializeDestinosViajesState();
       const action: InitMyDataAction = new InitMyDataAction(['destino 1', 'destino 2']);
+      //Action
       const newState: DestinosViajesState = reducerDestinosViajes(prevState, action);
+      //Assert
       expect(newState.items.length).toEqual(2);
       expect(newState.items[0].nombre).toEqual('destino 1');
     });
